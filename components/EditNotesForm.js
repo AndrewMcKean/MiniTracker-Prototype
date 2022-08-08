@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {  View } from 'react-native';
-import { Text, Button, Card, TextInput } from 'react-native-paper';
+import { Text, Button, TextInput } from 'react-native-paper';
 
-function EditUnitForm(props) {
+function EditNotesForm(props) {
   const [name, setName] = useState(props.unit.name);
   const [total, setTotal] = useState(props.unit.total);
   const [built, setBuilt] = useState(props.unit.built);
@@ -16,35 +16,18 @@ function EditUnitForm(props) {
     let editedUnit = {'name': name, 'total':total, 'built':built, 'primed':primed, 'painted':painted, 'notes': notes, 'uuid':uuid}
 
     props.editUnit(editedUnit);
-    props.setVisibility();
+    props.notesVisibility();
   }
 
 
   return(
     <View>
       <TextInput
-        placeholder={name}
-        value={name}
-        onChangeText={name => setName(name)} />
-      <TextInput
-        placeholder={total}
-        value={total}
-        onChangeText={total => setTotal(total)}
-      />
-      <TextInput
-        placeholder={built}
-        value={built}
-        onChangeText={built => setBuilt(built)}
-      />
-      <TextInput
-        placeholder={primed}
-        value={primed}
-        onChangeText={primed => setPrimed(primed)}
-      />
-      <TextInput
-        placeholder={painted}
-        value={painted}
-        onChangeText={painted => setPainted(painted)}
+        placeholder={notes}
+        value={notes}
+        onChangeText={notes => setNotes(notes)}
+        multiline
+        numberOfLines={(15)}
       />
       <Button onPress={handlePress}>
         <Text>Save</Text>
@@ -53,4 +36,4 @@ function EditUnitForm(props) {
   )
 }
 
-export default EditUnitForm;
+export default EditNotesForm;

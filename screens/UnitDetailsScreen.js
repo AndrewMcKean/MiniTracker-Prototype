@@ -4,6 +4,8 @@ import { DefaultTheme } from 'react-native-paper';
 import UnitTable from '../components/UnitTable';
 import EditUnitForm from '../components/EditUnitForm';
 import { updateUnit } from '../utilities/StorageFunctions';
+import NotesBox from '../components/NotesBox';
+import EditNotesForm from '../components/EditNotesForm';
 
 
 export default function UnitDetailsScreen ({route, navigation}) {
@@ -11,9 +13,14 @@ export default function UnitDetailsScreen ({route, navigation}) {
   const [universe, setUniverse] = useState(route.params.universe);
   const [army, setArmy] = useState(route.params.army);
   const [modalVisible, setModalVisible] = useState(false);
+  const [notesModal, setNotesModal] = useState(false);
   
   const setVisibility = () => {
     setModalVisible(!modalVisible)
+  }
+
+  const notesVisibility = () => {
+    setNotesModal(!notesModal)
   }
 
   function editUnit(editedUnit) {
@@ -47,8 +54,29 @@ export default function UnitDetailsScreen ({route, navigation}) {
           </View>
 
         </Modal>
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={notesModal}
+        onRequestClose={() => {
+          setNotesModal(!notesModal);
+        }}
+        >
+        <View style={styles.modalView}>
+          <EditNotesForm notesVisibility={notesVisibility} unit={unit} editUnit={editUnit} />
+          <TouchableOpacity
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setNotesModal(!notesModal)}
+          >
+            <Text style={styles.textStyle}>Cancel</Text>
+          </TouchableOpacity>
+          </View>
+
+        </Modal>
+
         <Image source={require('../assets/breacher.png')} style={styles.image} />
         <UnitTable unit={unit} universe={route.params.universe}  army={route.params.army} setVisibility={setVisibility} />
+        <NotesBox unit = { unit } notesVisibility = {notesVisibility} />
       </ScrollView>
     </SafeAreaView>
   );
