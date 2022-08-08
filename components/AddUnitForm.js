@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import {  StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Text, Button, Card, TextInput } from 'react-native-paper';
-import { DefaultTheme } from 'react-native-paper';
+import {  View } from 'react-native';
+import { Text, Button, TextInput } from 'react-native-paper';
 import UUID from 'react-native-uuid';
 
 function AddUnitForm(props) {

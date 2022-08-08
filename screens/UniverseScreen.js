@@ -1,15 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState, useEffect } from 'react';
-import {  SafeAreaView, ScrollView, StyleSheet, View, FlatList,  Pressable } from 'react-native';
-import { Text, Button, Card, TextInput } from 'react-native-paper';
+import {  SafeAreaView, ScrollView, StyleSheet, View, Pressable } from 'react-native';
+import { Text, Card } from 'react-native-paper';
 import { DefaultTheme } from 'react-native-paper';
 import AddUniverseForm from '../components/AddUniverseForm';
 import { saveUniverse } from '../utilities/StorageFunctions';
 import DeleteUniverseButton from '../components/DeleteUniverseButton';
+import { useIsFocused } from '@react-navigation/native';
 
 function UniverseScreen ({ navigation }) {
-
   const [universes, setUniverses] = useState([]);
+
+  //Force update on 'back'
+  const focus = useIsFocused();
 
   const addUniverse = (universe) => {
     if(universes) {
@@ -51,7 +54,7 @@ function UniverseScreen ({ navigation }) {
       }
 
     fetchData();
-  }, [])
+  }, [focus])
 
   const updateParentState = (universeToDelete) => {
     setUniverses(prev => (universes.filter(universe => universe !== universeToDelete)));

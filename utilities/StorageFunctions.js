@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import uuid from 'react-native-uuid';
 
 const saveData = () => {
   try {
@@ -102,7 +100,6 @@ export async function deleteArmy(universe, army) {
     let key = 'universes';
     let returningUser = await AsyncStorage.getItem(key);
     let data = JSON.parse(returningUser);
-    alert(JSON.stringify(data));
     
     try {
       delete data[key][universe]["armies"][army];
@@ -162,8 +159,25 @@ export async function deleteUnit(universe, army, unit) {
     }
   }
 
-export async function editUnit(universe, army, unit) {
-  
+
+export async function updateUnit(universe, army, editedUnit) {
+  try {
+    let key = 'universes';
+    let returningUser = await AsyncStorage.getItem(key);
+    let data = JSON.parse(returningUser);
+    let hasUnits = data[key][universe]['armies'][army]['units'];
+    
+    const uuid = editedUnit.uuid;
+
+    if(hasUnits) {
+      data[key][universe]['armies'][army]['units'][uuid] = editedUnit;
+    }
+
+    data = JSON.stringify(data);
+    AsyncStorage.setItem(key, data);
+  } catch (e) {
+    alert(e);
+  }  
 }
 
 

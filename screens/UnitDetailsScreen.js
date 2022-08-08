@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import {  SafeAreaView, ScrollView, StyleSheet, View, Text, Image, Modal, TouchableOpacity } from 'react-native';
-import { Card } from 'react-native-paper';
 import { DefaultTheme } from 'react-native-paper';
 import UnitTable from '../components/UnitTable';
 import EditUnitForm from '../components/EditUnitForm';
+import { updateUnit } from '../utilities/StorageFunctions';
 
 
 export default function UnitDetailsScreen ({route, navigation}) {
   const [unit, setUnit] = useState(route.params.unit);
+  const [universe, setUniverse] = useState(route.params.universe);
+  const [army, setArmy] = useState(route.params.army);
   const [modalVisible, setModalVisible] = useState(false);
   
   const setVisibility = () => {
@@ -17,6 +19,7 @@ export default function UnitDetailsScreen ({route, navigation}) {
   function editUnit(editedUnit) {
     setUnit(editedUnit);
     
+    updateUnit(universe, army, editedUnit);
     //TODO : Add save here
   }
 

@@ -1,15 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState, useEffect } from 'react';
-import {  SafeAreaView, ScrollView, StyleSheet, View, FlatList, TouchableOpacity, Modal, Pressable } from 'react-native';
-import { Text, Card, Button } from 'react-native-paper';
+import {  SafeAreaView, ScrollView, StyleSheet, View, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { Text, Card } from 'react-native-paper';
 import { DefaultTheme } from 'react-native-paper';
 import AddUnitForm from '../components/AddUnitForm';
 import { saveUnit } from '../utilities/StorageFunctions';
 import DeleteUnitButton from  '../components/DeleteUnitButton';
+import { useIsFocused } from '@react-navigation/native';
 
 function UnitScreen ({route, navigation}) {
   const [units, setUnits] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  
+  //Forces update on 'back' 
+  const focus = useIsFocused();
 
   const universe = route.params.universe;
   let army = route.params.name;
@@ -47,7 +51,7 @@ function UnitScreen ({route, navigation}) {
               setUnits([]);
               data = data['universes'][universe]["armies"][army]["units"];
               let unitKeys = Object.keys(data);
-              alert(JSON.stringify(data));
+              //DEBUG: Show Data: alert(JSON.stringify(data));
 
               unitKeys.map((unit) => {
                 units ? setUnits(prev => [data[unit], ...prev]) : setUnits(data[unit])
@@ -62,7 +66,7 @@ function UnitScreen ({route, navigation}) {
       }
 
     fetchData();
-  }, [])
+  }, [focus])
   
 
   const setVisibility = () => {

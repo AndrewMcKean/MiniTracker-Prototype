@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Stylesheet, Alert} from 'react-native';
+import { Alert} from 'react-native';
 import { Card, Button } from 'react-native-paper';
 import { deleteUniverse } from '../utilities/StorageFunctions';
 

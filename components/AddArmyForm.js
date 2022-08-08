@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {  StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Text, Button, Card, TextInput } from 'react-native-paper';
-import { DefaultTheme } from 'react-native-paper';
 
 function AddArmyForm(props) {
   const [text, setText] = useState("");
@@ -13,12 +11,11 @@ function AddArmyForm(props) {
     setText('');
   }
 
-
   return(
     <Card>
       <Card.Content>
         <TextInput
-          placeholder={"Unit name"}
+          placeholder={"Army name"}
           value={text}
           onChangeText={text => setText(text)}
         />

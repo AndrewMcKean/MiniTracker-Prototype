@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {  StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Text, Button, Card, TextInput } from 'react-native-paper';
-import { DefaultTheme } from 'react-native-paper';
 
 function AddUniverseForm(props) {
   const [text, setText] = useState('');
@@ -12,7 +10,6 @@ function AddUniverseForm(props) {
     props.addUniverse(universe);
     setText('');
   }
-
 
   return(
     <Card>

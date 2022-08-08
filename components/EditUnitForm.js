@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import {  StyleSheet, View, TouchableOpacity } from 'react-native';
+import {  View } from 'react-native';
 import { Text, Button, Card, TextInput } from 'react-native-paper';
-import { DefaultTheme } from 'react-native-paper';
-
 
 function EditUnitForm(props) {
   const [name, setName] = useState(props.unit.name);
@@ -14,9 +12,9 @@ function EditUnitForm(props) {
 
   const handlePress = (e) => {
     
-    let unit = {'name': name, 'total':total, 'built':built, 'primed':primed, 'painted':painted, 'uuid':uuid}
+    let editedUnit = {'name': name, 'total':total, 'built':built, 'primed':primed, 'painted':painted, 'uuid':uuid}
 
-    props.editUnit(unit);
+    props.editUnit(editedUnit);
     props.setVisibility();
   }
 
@@ -24,7 +22,7 @@ function EditUnitForm(props) {
   return(
     <View>
       <TextInput
-        placeholder={{name}}
+        placeholder={name}
         value={name}
         onChangeText={name => setName(name)} />
       <TextInput

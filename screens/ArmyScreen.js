@@ -6,11 +6,15 @@ import { DefaultTheme } from 'react-native-paper';
 import AddArmyForm from '../components/AddArmyForm';
 import { saveArmy } from '../utilities/StorageFunctions';
 import DeleteArmyButton from '../components/DeleteArmyButton';
+import { useIsFocused } from '@react-navigation/native';
 
 function ArmyScreen ({route, navigation }) {
 
   const [armies, setArmies] = useState([]);
   const universe = route.params.name;
+  
+  //Forces update on 'back'
+  const focus = useIsFocused();
 
   const addArmy = (army) => {
     if(armies) {
@@ -60,7 +64,7 @@ function ArmyScreen ({route, navigation }) {
       }
 
     fetchData();
-  }, [])
+  }, [focus])
 
 
   return (
@@ -69,10 +73,14 @@ function ArmyScreen ({route, navigation }) {
       <View>
         {armies ? armies.map((army) => {
             return (
-              <Card style={styles.card} key={army} onPress={() => navigation.navigate('Unit', {'universe': universe, 'name': army})}>
+              <Card style={styles.card} key={army} 
+                onPress={() => navigation.navigate('Unit', {'universe': universe, 'name': army})}>
                 <Card.Actions>
                   <Text>{army}</Text>
-                  <DeleteArmyButton universe={ universe } army= { army } updateParentState={ updateParentState }/>
+                  <DeleteArmyButton 
+                    universe={ universe } 
+                    army= { army } 
+                    updateParentState={ updateParentState }/>
                 </Card.Actions>
               </Card>
             )
