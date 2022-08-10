@@ -109,11 +109,33 @@ export async function deleteArmy(universe, army) {
       
       data = JSON.stringify(data);
       AsyncStorage.setItem(key, data);
-      alert(army + " successfully deleted.");
+      //alert(army + " successfully deleted."); DEBUG ALERT
     } catch (e) {
       alert(e);
     }
   }
+
+  export async function updateArmy(universe, armyToEdit, editedArmy) {
+    try {
+      let key = 'universes';
+      let returningUser = await AsyncStorage.getItem(key);
+      let data = JSON.parse(returningUser);
+      let units = data[key][universe]['armies'][armyToEdit];
+     
+      if(units) {
+        data[key][universe]['armies'][editedArmy] = units;
+      }
+      
+      
+      data = JSON.stringify(data);
+      AsyncStorage.setItem(key, data);
+      deleteArmy(universe, armyToEdit);
+      
+    } catch (e) {
+      alert(e);
+    }  
+  }
+  
 
 //Unit screen functions
 export async function saveUnit(universe, army, unit) {
